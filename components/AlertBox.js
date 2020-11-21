@@ -1,18 +1,15 @@
+import { Alert } from 'react-native';
 
-import Alert from 'react-native';
-
-const AlertBox = (header = 'Failed !', text = 'try later...') => {
+export const AlertBox = (header = '', text = '') => {
     Alert.alert(
-      header,
-      text,
-      [
-        {
-          text: 'Understood',
-          style: 'cancel',
-        },
-      ],
-      {cancelable: true},
+        header,
+        text,
+        [
+            {
+                text: 'Understood',
+                style: 'cancel',
+            },
+        ],
+        {cancelable: true},
     );
-  }
-
-export default AlertBox;
+}

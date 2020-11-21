@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -8,32 +9,31 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const LoginPage = ({ startLogin, loginUserName, setLoginUserName, loginPassword, setLoginPassword }) => {
+const LoginPage = ({ getData, loginParams : { username }, loginParams : { password }, setLoginParams }) => {
 
     return (
         <View>
             <TextInput
                 placeholder="Username..."
                 style={styles.input}
-                onChangeText={textValue => setLoginUserName(textValue)}
-                value={loginUserName}
+                onChangeText={    textValue => setLoginParams( current => ({ ...current,  username: textValue }) )     }
+                value={username}
             />
             <TextInput
                 secureTextEntry = { true }
                 placeholder="Password..."
                 style={styles.input}
-                onChangeText={ textValue => setLoginPassword(textValue)}
-                value={loginPassword}
+                onChangeText={ textValue => setLoginParams( current => ({ ...current,  password: textValue }) )     }
+                value={password}
             />
             <TouchableOpacity
                 style={styles.btn}
                 onPress={(event) => {
-                    startLogin(event);
-                    setLoginUserName('');
-                    setLoginPassword('');
+                    getData(event);
+                    setLoginParams({ username: '', password: '' });
                 }}>
                 <Text style={styles.btnText}>
-                    <Icon name="plus" size={20} /> Login
+                    <Icon name="sign-in" size={20} /> Login
                 </Text>
             </TouchableOpacity>
         </View>
@@ -58,5 +58,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     }
 });
+
+// type checking
+LoginPage.propTypes = {
+    loginParams      : PropTypes.object,
+    setLoginParams   : PropTypes.func,
+    getData       : PropTypes.func
+}
 
 export default LoginPage;
