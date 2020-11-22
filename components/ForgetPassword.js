@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -7,25 +6,26 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
-import axios from 'axios';
 import { AlertBox }   from './AlertBox';
+import axios from 'axios';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
+const ForgetPassword = () => {
 
-    const [ loginParams, setLoginParams ]   = useState( { username: '', password: '' } );
+    const [ identification, setIdentification ] = useState({});
 
-    const getData = () => {
+    const getPasw = () => {
 
-        if (!loginParams.username || !loginParams.password) {
-          AlertBox('No item entered','Please enter username and password');
+        if (!identification.identification) {
+          AlertBox('No item entered','Please enter username or password');
           return null
       }
     
           axios
               .post(
-                  `http://192.168.1.170/lipnonet/rekreace/api/pdo_read_sms.php`,
-                  loginParams,
+                  `https://www.frymburk.com/rekreace/api/pdo_sms_pasw.php`,
+                  //`http://192.168.1.170/lipnonet/rekreace/api/pdo_sms_pasw.php`,
+                  identification,
                   { timeout: 5000 }
               )
               .then(res => {
@@ -33,25 +33,17 @@ const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
                     // allForum = JSON.parse(res.data); --> for native xhr.onload 
                     const resp = res.data[0] || res.data;
       
-                    console.log(resp.sms_read);
-                    console.log(resp.id);
+                    console.log(resp.sms_pasw);
+                    console.log(resp);
       
                     // if error in response
-                    if (typeof resp.sms_read === 'string') {
-                        resp.sms_read === 'error' && AlertBox('login Error !','try later...');
-                        return null
-                    }
-      
-                    // if no user data
-                    if (typeof resp.id === 'string') {
-                        setOrigSettings( resp );
-                        setItems( resp ); 
-                        setIsLogged( true );
-                        AlertBox('login Success !','see actual settings...');
+                    if (typeof resp.sms_pasw === 'string') {
+                        resp.sms_pasw === 'error' && AlertBox('Error !','heslo se nepodařilo odeslat...');
+                        resp.sms_pasw !== 'error' && AlertBox('Heslo bylo odesláno na email:',`${resp.sms_pasw}...`);
                         return null
                     }
                     
-                    //console.log(res);
+                    console.log(resp); 
                     AlertBox('unknown Error !','try later...');
     
       
@@ -72,31 +64,23 @@ const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
                   }
               });   
       }
-    
 
     return (
         <View>
             <TextInput
                 placeholder="Username or Email..."
                 style={styles.input}
-                onChangeText={    textValue => setLoginParams( current => ({ ...current,  username: textValue }) )     }
-                value={loginParams.username}
-            />
-            <TextInput
-                secureTextEntry = { true }
-                placeholder="Password..."
-                style={styles.input}
-                onChangeText={ textValue => setLoginParams( current => ({ ...current,  password: textValue }) )     }
-                value={loginParams.password}
+                onChangeText={ textValue => setIdentification( { identification: textValue } ) }
+                value={identification.identification}
             />
             <TouchableOpacity
                 style={styles.btn}
                 onPress={(event) => {
-                    getData(event);
-                    setLoginParams({ username: '', password: '' });
+                    getPasw(event);
+
                 }}>
                 <Text style={styles.btnText}>
-                    <Icon name="sign-in" size={20} /> Login
+                    <Icon name="sign-in" size={20} /> Send Password
                 </Text>
             </TouchableOpacity>
         </View>
@@ -123,10 +107,5 @@ const styles = StyleSheet.create({
 });
 
 // type checking
-LoginPage.propTypes = {
-    loginParams      : PropTypes.object,
-    setLoginParams   : PropTypes.func,
-    getData       : PropTypes.func
-}
 
-export default LoginPage;
+export default ForgetPassword ;
