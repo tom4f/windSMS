@@ -2,6 +2,10 @@
 android/
 ios/
 __tests__/
+.gitattributes
+.flowconfig
+.buckconfig
+.watchmanconfig
 
 # OSX
 #
