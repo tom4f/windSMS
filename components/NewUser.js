@@ -11,22 +11,25 @@ import { AlertBox }   from './AlertBox';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const ForgetPassword = () => {
+const NewUser = () => {
 
-    const [ identification, setIdentification ] = useState({});
+    const [ newUser, setNewUser ] = useState({});
 
-    const getPasw = () => {
+    const createUser = () => {
 
-        if (!identification.identification) {
+
+        //console.log(newUser);
+
+        if (!newUser.username || !newUser.email) {
           AlertBox('No item entered','Please enter username or password');
           return null
       }
     
           axios
               .post(
-                  `https://www.frymburk.com/rekreace/api/pdo_sms_pasw.php`,
-                  //`http://192.168.1.170/lipnonet/rekreace/api/pdo_sms_pasw.php`,
-                  identification,
+                  `https://www.frymburk.com/rekreace/api/pdo_sms_new.php`,
+                  //`http://192.168.1.170/lipnonet/rekreace/api/pdo_sms_new.php`,
+                  newUser,
                   { timeout: 5000 }
               )
               .then(res => {
@@ -34,17 +37,20 @@ const ForgetPassword = () => {
                     // allForum = JSON.parse(res.data); --> for native xhr.onload 
                     const resp = res.data[0] || res.data;
       
-                    console.log(resp);
-                    //console.log(res);
+                    //console.log(res); 
+                    //console.log(resp.sms_new);
+                    //console.log(resp);
       
                     // if error in response
-                    if (typeof resp.sms_pasw === 'string') {
-                        resp.sms_pasw === 'error' && AlertBox('Error !','heslo se nepodařilo odeslat...');
-                        resp.sms_pasw === 'password_sent' && AlertBox('Heslo bylo odesláno na email:',`${resp.email}...`);
-                        return null
+                    if (typeof resp.sms_new === 'string') {
+                        if (resp.sms_new === 'user_exists' ) { AlertBox('Error !','user exists...' ); };
+                        if (resp.sms_new === 'email_exists') { AlertBox('Error !','email exists...'); };
+                        if (resp.sms_new === 'error'       ) { AlertBox('Error !','heslo se nepodařilo odeslat...'); };
+                        if (resp.sms_new === 'user_added'  ) { AlertBox(`Heslo pro ${resp.username} odesláno na`,`${resp.email}...`) };
+                    } else {
+                        AlertBox('unknown Error !','try later...');
                     }
-                    
-                    AlertBox('unknown Error !','try later...');
+
               })
               .catch(err => {
                   if (err.response) {
@@ -65,21 +71,27 @@ const ForgetPassword = () => {
 
     return (
         <View>
-            <Header title="Zapoměli jste heslo?" />
+            <Header title="Registrace nového uživatele" />        
             <TextInput
-                placeholder="Username or Email..."
+                placeholder="your new username..."
                 style={styles.input}
-                onChangeText={ textValue => setIdentification( { identification: textValue } ) }
-                value={identification.identification}
+                onChangeText={ textValue => setNewUser( current => ({ ...current, username: textValue }) ) }
+                value={newUser.username}
+            />
+            <TextInput
+                placeholder="your email..."
+                style={styles.input}
+                onChangeText={ textValue => setNewUser( current => ({ ...current, email: textValue }) ) }
+                value={newUser.email}
             />
             <TouchableOpacity
                 style={styles.btn}
                 onPress={(event) => {
-                    getPasw(event);
+                    createUser(event);
 
                 }}>
                 <Text style={styles.btnText}>
-                    <Icon name="sign-in" size={15 } /> Send Password
+                    <Icon name="user-plus" size={15} /> create user
                 </Text>
             </TouchableOpacity>
         </View>
@@ -108,4 +120,4 @@ const styles = StyleSheet.create({
 
 // type checking
 
-export default ForgetPassword ;
+export default NewUser ;

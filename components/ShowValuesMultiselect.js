@@ -63,18 +63,60 @@ const ShowValuesMultiselect = ( { items, setItems } ) => {
                 searchInputPlaceholderText="Search Items..."
                 onChangeInput={(text) => console.log(text)}
                 hideTags
-                tagRemoveIconColor="#CCC"
-                tagBorderColor="#CCC"
-                tagTextColor="#CCC"
-                selectedItemTextColor="#CCC"
-                selectedItemIconColor="#CCC"
-                itemTextColor="#000"
-
-                searchInputStyle={{color: '#CCC'}}
-                submitButtonColor="#48d22b"
                 submitButtonText="Submit"
 
-                styleDropdownMenu={styles.dropdownMenu}
+                styleDropdownMenu={{
+                    margin: 0,
+                    padding: 5,
+
+                    backgroundColor: 'blue',
+                }}
+
+                styleDropdownMenuSubsection={{
+                    height: 30,
+                    backgroundColor: 'pink',
+                    margin:0,
+                    padding:5,
+                }}
+
+                styleMainWrapper={{
+
+                    backgroundColor: 'red',
+                    margin:0,
+                    padding:5,
+
+               }}
+
+                styleTextDropdownSelected={{
+                    backgroundColor: 'yellow',
+
+                    margin:0,
+                    padding:0,
+                    fontSize: 15
+               }}
+               styleListContainer={{
+                    backgroundColor: 'orange',
+                    margin:0,
+                    padding:3,
+               }}
+
+                // works
+                selectedItemTextColor="#FF0000"
+                selectedItemIconColor="#00FF00"
+                itemTextColor="#0000FF"
+                submitButtonColor="#0000FF"
+
+
+
+                tagRemoveIconColor="#0000FF"
+                tagBorderColor="#00FF00"
+                tagTextColor="#CCC"
+                
+                searchInputStyle={{color: '#FF00'}}
+
+
+
+
             />
         </View>
     );
@@ -84,18 +126,11 @@ const styles = StyleSheet.create({
 
   multiselectView: {
     backgroundColor: 'green',
-    marginHorizontal: 5,
-    marginTop: 0,
-    padding: 0,
+    padding: 5,
+    margin: 3,
+
   },
 
-  dropdownMenu: {
-    marginHorizontal: 0,
-    marginTop: 20,
-    marginBottom: 20,
-    padding: 10,
-    height: 0
-  },
 });
 
 

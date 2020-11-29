@@ -24,7 +24,8 @@ const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
     
           axios
               .post(
-                  `http://192.168.1.170/lipnonet/rekreace/api/pdo_read_sms.php`,
+                  //`http://192.168.1.170/lipnonet/rekreace/api/pdo_read_sms.php`,
+                  `https://www.frymburk.com/rekreace/api/pdo_read_sms.php`,
                   loginParams,
                   { timeout: 5000 }
               )
@@ -51,7 +52,7 @@ const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
                         return null
                     }
                     
-                    //console.log(res);
+                    console.log(res);
                     AlertBox('unknown Error !','try later...');
     
       
@@ -96,7 +97,7 @@ const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
                     setLoginParams({ username: '', password: '' });
                 }}>
                 <Text style={styles.btnText}>
-                    <Icon name="sign-in" size={20} /> Login
+                    <Icon name="sign-in" size={15} /> Login
                 </Text>
             </TouchableOpacity>
         </View>
@@ -105,19 +106,20 @@ const LoginPage = ( { setOrigSettings, setItems, setIsLogged } ) => {
 
 const styles = StyleSheet.create({
     input: {
-        height: 60,
-        padding: 8,
-        margin: 5,
-        fontSize: 20
+        height: 30,
+        padding: 3,
+        margin: 3,
+        fontSize: 15
     },
     btn: {
         backgroundColor: '#c2bad8',
-        padding: 9,
-        margin: 5,
+        padding: 3,
+        margin: 3,
     },
     btnText: {
+        height: 25,
         color: 'darkslateblue',
-        fontSize: 20,
+        fontSize: 15,
         textAlign: 'center',
     }
 });

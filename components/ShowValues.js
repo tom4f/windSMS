@@ -40,7 +40,8 @@ const ShowValues = ( { items, setItems, origSettings, setOrigSettings } ) => {
 
     axios
       .post(
-            `http://192.168.1.170/lipnonet/rekreace/api/pdo_update_sms.php`,
+            //`http://192.168.1.170/lipnonet/rekreace/api/pdo_update_sms.php`,
+            `https://www.frymburk.com/rekreace/api/pdo_update_sms.php`,
             dataForAxios,
             { timeout: 5000 }
       )
@@ -206,30 +207,29 @@ btnText: {
   },
 
   oneItem: {
-
+      padding: 0,      
       backgroundColor: 'lightgrey',
-      marginTop: 5,
-      marginHorizontal: 5,
+      marginTop: 3,
+      marginHorizontal: 3,
   },
 
   text:{
-      fontSize: 15,
+      fontSize: 10,
     	padding: 3
   },
 
   textBig:{
     height: 25,
-
     margin: 0,
-    fontSize: 20,
+    fontSize: 15,
     paddingVertical: 0
   },
 
     input: {
-      height: 25,
-      padding: 1,
-      margin: 5,
-      fontSize: 20,
+      height: 30,
+      padding: 3,
+      margin: 3,
+      fontSize: 15,
       backgroundColor: '#c2bad8',
       color: 'darkslateblue',
     },

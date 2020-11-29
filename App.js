@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import Header         from './components/Header';
 import ShowValues     from './components/ShowValues';
 import LoginPage      from './components/LoginPage';
 import ForgetPassword from './components/ForgetPassword';
-
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import NewUser        from './components/NewUser';
 
 const App = () => {
 
@@ -16,7 +15,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-        <Header title="Tomášova apka !" />
+        <Header title="Super!" />
         { 
         isLogged
           ? <ShowValues
@@ -31,11 +30,8 @@ const App = () => {
                 setItems        = { setItems }
                 setIsLogged     = { setIsLogged }
             /> 
-            <Header title="Zapoměli jste heslo?" />
-            <ForgetPassword />                 
-            <Text style={styles.btnText}>
-                <Icon name="user-plus" size={20} /> Registrace nového uživatele
-            </Text>
+            <ForgetPassword />
+            <NewUser />
             </>
         }
     </View>
@@ -46,18 +42,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    tinyLogo: {
-        width: 100,
-        height: 100,
-    },
     btn: {
         backgroundColor: '#c2bad8',
         padding: 9,
         margin: 5,
     },
     btnText: {
+        
         color: 'darkslateblue',
-        fontSize: 20,
+        fontSize: 15,
         textAlign: 'center',
     }
 });

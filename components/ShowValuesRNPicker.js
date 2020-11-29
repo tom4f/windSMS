@@ -47,13 +47,12 @@ return (
             <View style={styles.oneItem}>
                 <Text style={styles.text}>Wind limit</Text>
                 <RNPickerSelect
-                    placeholder={{
-                      label: 'Select wind limit...',
-                      //value: '',
-                    }}
-                    onValueChange={(value) => setWindSpeed( value )}
+                    placeholder={{ label: 'Select wind limit...' }}
                     items={RNPicker}
-                    //style={{ height: "50" }}
+                    onValueChange={(value) => setWindSpeed( value )}
+
+                    //style={{ ...pickerSelectStyles }}
+
                     value={selectedWindSpeed}
                 />
             </View>
@@ -61,30 +60,31 @@ return (
     );
 };
 
-const styles = StyleSheet.create({
-
-
-  pickerSelectStyles:{
-    fontSize: 16,
-    paddingTop: 13,
-    paddingHorizontal: 10,
-    paddingBottom: 12,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    backgroundColor: 'white',
-    color: 'black',
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+      fontSize: 6,
+      paddingTop: 13,
+      paddingHorizontal: 10,
+      paddingBottom: 12,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      backgroundColor: 'white',
+      color: 'black',
   },
+});
+
+const styles = StyleSheet.create({
 
   oneItem: {
 
       backgroundColor: 'lightgrey',
-      marginTop: 5,
-      marginHorizontal: 5,
+      marginTop: 3,
+      marginHorizontal: 3,
   },
 
   text:{
-      fontSize: 15,
+      fontSize: 10,
     	padding: 3
   },
 });
