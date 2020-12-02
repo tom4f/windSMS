@@ -93,7 +93,7 @@ return (
 
         <ShowValuesMultiselect items={items} setItems={setItems} />
 
-        <KeyboardAvoidingView style={{flex:1}} behavior="height" enabled={true}>
+        <KeyboardAvoidingView style={{flex:1}} behavior="position" enabled={true}>
            
             <ScrollView>
 
