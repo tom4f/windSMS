@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-        <Header title="Super!" />
+        <Header title="Lipno Wind to Mail / SMS" />
         { 
         isLogged
           ? <ShowValues

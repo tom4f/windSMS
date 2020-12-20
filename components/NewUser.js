@@ -17,13 +17,24 @@ const NewUser = () => {
 
     const createUser = () => {
 
+        const { username, email } = newUser;
 
-        //console.log(newUser);
-
-        if (!newUser.username || !newUser.email) {
+        if (!username || !email) {
           AlertBox('No item entered','Please enter username or password');
           return null
       }
+
+      // check email
+      //or without possibility of more @:  /\S+@\S+\.\S+/;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null;
+      
+      // check if min 3 characters
+      if (!/[0-9a-zA-Z]{3,}/.test(username)) {
+        AlertBox('short username','Please enter at least 3 characters');
+        return null;
+      } 
+
+
     
           axios
               .post(
@@ -86,10 +97,7 @@ const NewUser = () => {
             />
             <TouchableOpacity
                 style={styles.btn}
-                onPress={(event) => {
-                    createUser(event);
-
-                }}>
+                onPress={(event) => { createUser(event) }}>
                 <Text style={styles.btnText}>
                     <Icon name="user-plus" size={15} /> create user
                 </Text>
